@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
-import { AuthProvider, useAuth } from './context/AuthContext';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
 import VerticalTabNav from './components/tabs/VerticalTabNav';
@@ -8,7 +7,6 @@ import RAGTab from './components/tabs/RAGTab';
 import FlashcardsTab from './components/tabs/FlashcardsTab';
 import PodcastTab from './components/tabs/PodcastTab';
 import GamesTab from './components/tabs/GamesTab';
-import AuthPage from './components/auth/AuthPage';
 
 const MainContent = () => {
   const { activeTab } = useApp();
@@ -75,35 +73,7 @@ const MainContent = () => {
   );
 };
 
-const AuthenticatedApp = () => {
-  const { isAuthenticated, loading } = useAuth();
-
-  // Show loading while checking auth
-  if (loading) {
-    return (
-      <div 
-        className="h-screen flex items-center justify-center"
-        style={{ background: 'var(--bg-primary)' }}
-      >
-        <div className="text-center">
-          <div 
-            className="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center animate-pulse"
-            style={{ background: '#8C1D40' }}
-          >
-            <span className="text-white text-xl">✦</span>
-          </div>
-          <p style={{ color: 'var(--text-tertiary)' }}>Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Show login page if not authenticated
-  if (!isAuthenticated) {
-    return <AuthPage />;
-  }
-
-  // Show main app if authenticated
+function App() {
   return (
     <AppProvider>
       <div className="h-screen flex flex-col mesh-gradient noise-overlay relative">
@@ -114,14 +84,6 @@ const AuthenticatedApp = () => {
         </div>
       </div>
     </AppProvider>
-  );
-};
-
-function App() {
-  return (
-    <AuthProvider>
-      <AuthenticatedApp />
-    </AuthProvider>
   );
 }
 

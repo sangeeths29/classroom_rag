@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../../context/AppContext';
-import { useAuth } from '../../context/AuthContext';
-import { SunIcon, MoonIcon, UserIcon } from '../icons/Icons';
+import { SunIcon, MoonIcon } from '../icons/Icons';
 
 const TopBar = () => {
   const { selectedCourse, selectedModule, theme, toggleTheme } = useApp();
-  const { user, logout } = useAuth();
-  const [showUserMenu, setShowUserMenu] = useState(false);
 
   return (
     <header 
@@ -61,7 +58,18 @@ const TopBar = () => {
             color: '#8C1D40',
           }}
         >
-          W. P. Carey
+          W. P. Carey School of Business
+        </div>
+
+        {/* ASU Badge */}
+        <div 
+          className="px-3 py-1.5 rounded-lg text-xs"
+          style={{
+            background: 'rgba(255, 198, 39, 0.15)',
+            color: '#8C1D40',
+          }}
+        >
+          ASU
         </div>
 
         {/* Theme Toggle */}
@@ -96,98 +104,6 @@ const TopBar = () => {
             )}
           </AnimatePresence>
         </motion.button>
-
-        {/* User Menu */}
-        <div className="relative">
-          <motion.button
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl"
-            style={{ background: 'var(--bg-tertiary)' }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {user?.avatar_url ? (
-              <img 
-                src={user.avatar_url} 
-                alt={user.full_name || user.username} 
-                className="w-7 h-7 rounded-lg object-cover"
-              />
-            ) : (
-              <div 
-                className="w-7 h-7 rounded-lg flex items-center justify-center"
-                style={{ background: '#8C1D40' }}
-              >
-                <UserIcon className="w-4 h-4 text-white" />
-              </div>
-            )}
-            <span className="text-sm hidden sm:block" style={{ color: 'var(--text-primary)' }}>
-              {user?.full_name || user?.username || 'User'}
-            </span>
-            <svg 
-              className="w-4 h-4" 
-              style={{ color: 'var(--text-tertiary)' }}
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </motion.button>
-
-          {/* Dropdown Menu */}
-          <AnimatePresence>
-            {showUserMenu && (
-              <>
-                {/* Backdrop */}
-                <div 
-                  className="fixed inset-0 z-40"
-                  onClick={() => setShowUserMenu(false)}
-                />
-                
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="absolute right-0 top-full mt-2 w-56 rounded-xl overflow-hidden z-50"
-                  style={{
-                    background: 'var(--bg-card)',
-                    border: '1px solid var(--border-primary)',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
-                  }}
-                >
-                  {/* User Info */}
-                  <div className="p-4 border-b" style={{ borderColor: 'var(--border-primary)' }}>
-                    <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                      {user?.full_name || user?.username}
-                    </p>
-                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
-                      {user?.email}
-                    </p>
-                  </div>
-
-                  {/* Menu Items */}
-                  <div className="p-2">
-                    <button
-                      onClick={() => {
-                        setShowUserMenu(false);
-                        logout();
-                      }}
-                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors"
-                      style={{ color: '#ef4444' }}
-                      onMouseEnter={(e) => e.target.style.background = 'rgba(239, 68, 68, 0.1)'}
-                      onMouseLeave={(e) => e.target.style.background = 'transparent'}
-                    >
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                      </svg>
-                      <span className="text-sm">Sign Out</span>
-                    </button>
-                  </div>
-                </motion.div>
-              </>
-            )}
-          </AnimatePresence>
-        </div>
       </div>
     </header>
   );
