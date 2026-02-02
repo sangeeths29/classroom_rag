@@ -32,7 +32,13 @@ app = FastAPI(
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[frontend_url, "http://localhost:5173", "http://localhost:3000"],
+    allow_origins=[
+        frontend_url,
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://classroom-rag.vercel.app",
+        "https://*.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
