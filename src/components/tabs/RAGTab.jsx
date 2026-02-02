@@ -721,16 +721,16 @@ What specific topic would you like me to explain?`;
                 disabled={isProcessing || isListening}
                 className="w-12 h-12 rounded-xl flex items-center justify-center transition-all relative"
                 style={{
-                  background: isListening ? 'rgba(140, 29, 64, 0.2)' : 'var(--bg-card)',
-                  border: '1px solid var(--border-primary)'
+                  background: isListening ? 'rgba(140, 29, 64, 0.3)' : 'rgba(140, 29, 64, 0.1)',
+                  border: '1px solid rgba(140, 29, 64, 0.3)'
                 }}
-                whileHover={{ scale: 1.05, borderColor: '#8C1D40' }}
+                whileHover={{ scale: 1.05, background: 'rgba(140, 29, 64, 0.2)' }}
                 whileTap={{ scale: 0.95 }}
-                title="Voice input"
+                title="Voice input - Click to speak"
               >
                 <MicrophoneIcon 
                   className="w-5 h-5"
-                  style={{ color: isListening ? '#8C1D40' : 'var(--text-tertiary)' }}
+                  style={{ color: '#8C1D40' }}
                 />
                 {isListening && (
                   <motion.div
