@@ -4,7 +4,7 @@ Document embedding and vector store management
 import os
 from pathlib import Path
 from langchain_community.document_loaders import TextLoader, PyPDFLoader, DirectoryLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 

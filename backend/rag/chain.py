@@ -3,9 +3,9 @@ RAG Chain for answering questions about the course
 """
 import os
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.runnable import RunnablePassthrough
-from langchain.schema.output_parser import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
 from .embeddings import get_retriever
 
 # System prompt for the AI assistant
